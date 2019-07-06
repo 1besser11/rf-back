@@ -34,6 +34,13 @@ public class User implements UserDetails {
     private long id;
    
     private String userIdGoogle;
+    private double total;
+    
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_discount",
+            joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "discount", referencedColumnName = "id"))
+    private Set<PercentDiscount> discounts;
 
   //@NotBlank(message = "Blank login")
   //@Size(min = 2, max = 45, message = "Wrong login size")

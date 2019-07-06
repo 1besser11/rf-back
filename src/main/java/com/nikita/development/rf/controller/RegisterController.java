@@ -70,7 +70,7 @@ public class RegisterController {
     }
     
     @ExceptionHandler({ValidationException.class})
-    public ResponseEntity<?> handleException(ValidationException e) throws JsonGenerationException, JsonMappingException, IOException {
+    public @ResponseBody ErrorMessage<RegisterDTO> handleException(ValidationException e) throws JsonGenerationException, JsonMappingException, IOException {
     	/*ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
     	String msg = "";
     	for(ObjectError o: e.getErrors().getAllErrors()) {
@@ -98,9 +98,8 @@ public class RegisterController {
     		
     		
     	}
-    	ErrorMessage<RegisterDTO> error = new ErrorMessage<RegisterDTO>(user, msg);
-    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ObjectMapper().writeValueAsString(error));
-    }
+    	return new ErrorMessage<RegisterDTO>(user, msg);
+     }
 
 
 }
